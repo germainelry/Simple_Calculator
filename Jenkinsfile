@@ -46,6 +46,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to GitHub Pages') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    sh """
+                        npm install -g --silent gh-pages@2.1.1
+                        git config user.email "jenkins@example.com"
+                        git config user.name "Jenkins"
+                        gh-pages --dotfiles --message '[skip ci] Updates' --dist build
+                    """
+                }
+            }
+        }
     }
     post {
         success {
