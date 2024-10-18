@@ -9,22 +9,40 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                // Use 'bat' for Windows environment
-                bat 'pip install -r requirements.txt'
+                // Conditional step: Use 'bat' for Windows, 'sh' for Mac/Linux
+                script {
+                    if (isUnix()) {
+                        sh 'pip3 install -r requirements.txt' // Mac/Linux
+                    } else {
+                        bat 'pip install -r requirements.txt' // Windows
+                    }
+                }
             }
         }
         stage('Build') {
             steps {
                 echo 'Running calculator script...'
-                bat 'python calculator.py 1 10 20' // Passes the operation and numbers as arguments
+                script {
+                    if (isUnix()) {
+                        sh 'python3 calculator.py 1 10 20' // Mac/Linux
+                    } else {
+                        bat 'python calculator.py 1 10 20' // Windows
+                    }
+                }
             }
         }
         stage('Test') {
             steps {
-                // Continue to the next stage even if tests fail
+                // Handle test results and platform differences
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     echo 'Running unit tests...'
-                    bat 'pytest --maxfail=1 --disable-warnings'
+                    script {
+                        if (isUnix()) {
+                            sh 'pytest --maxfail=1 --disable-warnings' // Mac/Linux
+                        } else {
+                            bat 'pytest --maxfail=1 --disable-warnings' // Windows
+                        }
+                    }
                 }
             }
         }
