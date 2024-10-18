@@ -1,9 +1,4 @@
-# calculator.py
-
-def add(x, y):
-    return x + y
-
-def subtract(x, y):import argparse
+import argparse
 
 # Define basic arithmetic functions
 def add(x, y):
@@ -34,7 +29,7 @@ def calculator(operation, num1, num2):
         print("Invalid input")
 
 # The main section of the script
-if __name__ == "__main__":
+if name == "__main__":
     parser = argparse.ArgumentParser(description="Simple Calculator")
 
     # Define the arguments the script will accept
@@ -64,44 +59,5 @@ if __name__ == "__main__":
         num1 = args.num1
         num2 = args.num2
 
-# Call the calculator function with the values (either from command line or input)
-calculator(operation, num1, num2)
-
-def multiply(x, y):
-    return x * y
-
-def divide(x, y):
-    if y == 0:
-        return "Error: Division by zero"
-    return x / y
-
-def calculator():
-    print("Simple Calculator")
-    print("Select operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-
-    choice = input("Enter choice (1/2/3/4): ")
-
-    if choice in ['1', '2', '3', '4']:
-        try:
-            num1 = float(input("Enter first number: "))
-            num2 = float(input("Enter second number: "))
-        except ValueError:
-            return "Invalid input. Please enter numeric values."
-
-        if choice == '1':
-            print(f"{num1} + {num2} = {add(num1, num2)}")
-        elif choice == '2':
-            print(f"{num1} - {num2} = {subtract(num1, num2)}")
-        elif choice == '3':
-            print(f"{num1} * {num2} = {multiply(num1, num2)}")
-        elif choice == '4':
-            print(f"{num1} / {num2} = {divide(num1, num2)}")
-    else:
-        print("Invalid choice. Please select a valid operation.")
-
-if __name__ == "__main__":
-    calculator()
+    # Call the calculator function with the values (either from command line or input)
+    calculator(operation, num1, num2)
