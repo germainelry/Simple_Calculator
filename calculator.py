@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     # Call the calculator function with the values (either from command line or input)
     calculator(operation, num1, num2)
-    return x - y
+        return x - y
 
 def multiply(x, y):
     return x * y
